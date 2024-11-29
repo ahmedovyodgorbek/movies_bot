@@ -21,8 +21,8 @@ async def admin_work(message: types.Message):
     if status:
         users = db.get_users()
         text = ""
-        for index, user in enumerate(users):
-            text += f"{index}. <b>{user.get("fullname")}</b> | {user.get("username")} | {user.get("telegram_id")}\n"
+        for user in users:
+            text += f"<b>{user.get("fullname")}</b> | {user.get("username")} | {user.get("telegram_id")}\n"
         await message.answer(text=text, parse_mode="HTML")
 
 
@@ -32,6 +32,6 @@ async def admin_work(message: types.Message):
     if status:
         movies = db.get_movies()
         text = ""
-        for index, movie in enumerate(movies):
-            text += f"{index}. <b>{movie.get("name")}</b> | {movie.get("movie_id")}\n"
+        for movie in movies:
+            text += f"{movie.get("id")}. <b>{movie.get("name")}</b> | {movie.get("movie_id")}\n"
         await message.answer(text=text, parse_mode="HTML")
