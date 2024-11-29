@@ -16,4 +16,4 @@ db = Database(db_name=DB_NAME,
               )
 
 db.create_users_table()
-db.create_cities_table()
+db.create_movies_table()

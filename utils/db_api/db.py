@@ -51,17 +51,22 @@ class Database:
         """
         self.execute(sql)
 
-    def create_cities_table(self):
+    def create_movies_table(self):
         sql = """
-            CREATE TABLE IF NOT EXISTS cities(
+            CREATE TABLE IF NOT EXISTS movies(
             id INT PRIMARY KEY AUTO_INCREMENT,
-            city_name VARCHAR(100) NOT NULL,
-            owner_id VARCHAR(100) NOT NULL,
-        
-            CONSTRAINT owner_and_city_name UNIQUE (owner_id, city_name)
+            name VARCHAR(100) NOT NULL,
+            movie_id VARCHAR(50) NOT NULL
             )
         """
         self.execute(sql)
+
+    def get_movie_id(self, movie_id):
+        sql = """
+            SELECT movie_id FROM movies 
+            WHERE id = %s
+        """
+        return self.execute(sql, (movie_id,), fetchone=True)
 
     def register_user(self, telegram_id, fullname, username):
         sql = """
@@ -70,27 +75,8 @@ class Database:
         """
         self.execute(sql, (telegram_id, fullname, username), commit=True)
 
-    def register_city(self, city_name, owner_id):
-        sql = """
-            INSERT INTO cities(city_name,owner_id)
-            VALUES(%s,%s)        
-        """
-        self.execute(sql, (city_name, owner_id), commit=True)
-
     def get_user(self, telegram_id):
         sql = """
             SELECT * FROM users WHERE telegram_id = %s 
         """
         return self.execute(sql, (telegram_id,), fetchone=True)
-
-    def get_cities(self, owner_telegram_id):
-        sql = """
-            SELECT city_name FROM cities WHERE owner_id = %s
-        """
-        return self.execute(sql, (owner_telegram_id,), fetchall=True)
-
-    def clear_cities(self, owner_telegram_id):
-        sql = """
-            DELETE FROM cities WHERE owner_id = %s
-        """
-        self.execute(sql, (owner_telegram_id,), commit=True)
