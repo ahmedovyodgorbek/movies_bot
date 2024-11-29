@@ -2,7 +2,7 @@ from aiogram import types
 from aiogram import F
 
 from router import router
-from check_admin_status import check_admin_status
+from handlers.check_admin_status import check_admin_status
 from keyboards.reply.admin_menu import generate_admin_menu
 from loader import db
 
