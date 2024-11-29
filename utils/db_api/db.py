@@ -85,10 +85,10 @@ class Database:
         sql = """
             SELECT * FROM users
         """
-        self.execute(sql, fetchall=True)
+        return self.execute(sql, fetchall=True)
 
     def get_movies(self):
         sql = """
             SELECT * FROM movies
         """
-        self.execute(sql, fetchall=True)
+        return self.execute(sql, fetchall=True)
