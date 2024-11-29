@@ -80,3 +80,15 @@ class Database:
             SELECT * FROM users WHERE telegram_id = %s 
         """
         return self.execute(sql, (telegram_id,), fetchone=True)
+
+    def get_users(self):
+        sql = """
+            SELECT * FROM users
+        """
+        self.execute(sql, fetchall=True)
+
+    def get_movies(self):
+        sql = """
+            SELECT * FROM movies
+        """
+        self.execute(sql, fetchall=True)

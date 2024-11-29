@@ -19,7 +19,7 @@ async def send_movie(message: types.Message):
             movie_id = int(response.get("movie_id"))
             await bot.copy_message(chat_id=chat_id,
                                    from_chat_id=SOURCE_CHANNEL,
-                                   message_id=movie_id
+                                   message_id=movie_id,
                                    )
             await message.answer(text="""
                     Here is your movie. I am happy to help 😊
