@@ -22,8 +22,14 @@ async def admin_work(message: types.Message):
         users = db.get_users()
         text = ""
         for user in users:
-            text += f"<b>{user.get("fullname")}</b> | {user.get("username")} | {user.get("telegram_id")}\n"
-        await message.answer(text=text, parse_mode="HTML")
+            fullname = user.get("fullname")
+            username = user.get("username")
+            telegram_id = user.get("telegram_id")
+            text += f"<b>{fullname}</b> | {username} | {telegram_id}\n"
+        try:
+            await message.answer(text=text, parse_mode="HTML")
+        except:
+            await message.answer(text="error with getting users")
 
 
 @router.message(F.text == "🎥 Movies")
@@ -33,5 +39,11 @@ async def admin_work(message: types.Message):
         movies = db.get_movies()
         text = ""
         for movie in movies:
-            text += f"{movie.get("id")}. <b>{movie.get("name")}</b> | {movie.get("movie_id")}\n"
-        await message.answer(text=text, parse_mode="HTML")
+            id = movie.get("id")
+            name = movie.get("name")
+            movie_id = movie.get("movie_id")
+            text += f"{id}. <b>{name}</b> | {movie_id}\n"
+        try:
+            await message.answer(text=text, parse_mode="HTML")
+        except:
+            await message.answer(text="error with getting movies")

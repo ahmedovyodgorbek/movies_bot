@@ -14,8 +14,10 @@ async def ads(message: types.Message):
 
 
 @router.message(lambda message: "!ads" in message.text)
-async def send_ads(messgae: types.Message):
-    text = messgae.text.replace("!ads", "", 1)
-    users = db.get_users()
-    for user in users:
-        await bot.send_message(int(user.get("telegram_id")), text)
+async def send_ads(message: types.Message):
+    status = await check_admin_status(message.from_user.id)
+    if status:
+        text = message.text.replace("!ads", "", 1)
+        users = db.get_users()
+        for user in users:
+            await bot.send_message(int(user.get("telegram_id")), text)
