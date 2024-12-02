@@ -19,10 +19,11 @@ async def send_ads(message: types.Message):
     status = await ads_supervisor(message.from_user.id)
     if status:
         if len(message.text) >= 10:
-            # users = db.get_users()
-            # for user in users:
-            await bot.copy_message(
-                chat_id=message.from_user.id,
-                from_chat_id=message.from_user.id,
-                message_id=message.message_id
-            )
+            users = db.get_users()
+            for user in users:
+                user_id = int(user.get("telegram_id"))
+                await bot.copy_message(
+                    chat_id=user_id,
+                    from_chat_id=message.from_user.id,
+                    message_id=message.message_id
+                )
