@@ -1,3 +1,4 @@
+import time
 from aiogram import types
 from aiogram import F
 
@@ -21,3 +22,13 @@ async def send_ads(message: types.Message):
         users = db.get_users()
         for user in users:
             await bot.send_message(int(user.get("telegram_id")), text)
+
+
+@router.message(F.text == "!test")
+async def delete_last_message(message: types.Message):
+    status = await check_admin_status(message.from_user.id)
+    if status:
+        text = message.text.replace("!test", "", 1)
+        await bot.send_message(message.from_user.id, text)
+        time.sleep(3)
+        await bot.delete_message(chat_id=message.from_user.id, message_id=message.message_id)
