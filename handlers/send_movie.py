@@ -1,6 +1,7 @@
 from aiogram import types
 from aiogram import F
 
+from logs import logger
 from router import router
 from loader import bot
 from config import SOURCE_CHANNEL
@@ -9,6 +10,7 @@ from keyboards.inline.join_channel import join_request
 from loader import db
 
 
+@logger
 @router.message(F.text.isdigit())
 async def send_movie(message: types.Message):
     status = await check_membership(message.from_user.id)

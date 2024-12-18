@@ -61,6 +61,17 @@ class Database:
         """
         self.execute(sql)
 
+    def add_movie(self, name: str, movie_id: str):
+        sql = """
+            INSERT INTO movies(name, movie_id)
+            VALUES(%s, %s)
+        """
+        try:
+            self.execute(sql, (name, movie_id), commit=True)
+            return True
+        except:
+            return False
+
     def get_movie_id(self, movie_id):
         sql = """
             SELECT movie_id FROM movies 

@@ -2,6 +2,7 @@ import time
 from aiogram import types
 from aiogram import F
 
+from logs import logger
 from router import router
 from loader import db, bot
 from handlers.check_admin_status import check_admin_status, ads_supervisor
@@ -11,9 +12,10 @@ from handlers.check_admin_status import check_admin_status, ads_supervisor
 async def ads(message: types.Message):
     status = await check_admin_status(message.from_user.id)
     if status:
-        await message.reply(text="send me the ads\n\n for example: !ads text")
+        await message.reply(text="send me the ads that is longer than 10")
 
 
+@logger
 @router.message()
 async def send_ads(message: types.Message):
     status = await ads_supervisor(message.from_user.id)
