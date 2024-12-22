@@ -72,6 +72,12 @@ class Database:
         except:
             return False
 
+    def get_last_movie(self):
+        sql = """
+            SELECT * FROM movies ORDER BY movie_id DESC limit = 1
+        """
+        return self.execute(sql, fetchone=True)
+
     def get_movie_id(self, movie_id):
         sql = """
             SELECT movie_id FROM movies 

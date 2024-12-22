@@ -21,11 +21,11 @@ async def admin_work(message: types.Message):
     if status:
         users = db.get_users()
         text = ""
-        for user in users:
+        for index, user in enumerate(users, start=1):
             fullname = user.get("fullname")
             username = user.get("username")
             telegram_id = user.get("telegram_id")
-            text += f"<b>{fullname}</b> | {username} | {telegram_id}\n"
+            text += f"{index}. <b>{fullname}</b> | {username} | {telegram_id}\n"
         try:
             await message.answer(text=text, parse_mode="HTML")
         except:

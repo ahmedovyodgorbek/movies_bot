@@ -22,9 +22,11 @@ async def send_movie(message: types.Message):
 async def save_movie(message: types.Message):
     status = await ads_supervisor(message.from_user.id)
     if status:
-        movie_name = (message.text.strip('*'))[0]
-        movie_id = (message.text.strip('*'))[1]
+        movie_name = (message.text.split('*'))[0]
+        movie_id = (message.text.split('*'))[1]
         if db.add_movie(movie_name, movie_id) is True:
-            await message.answer(text=f"{movie_id}. {movie_name} has been added successfully !")
+            last_movie = db.get_last_movie()
+            id = last_movie.get('id')
+            await message.answer(text=f"{id} | {movie_id}. {movie_name} has been added successfully !")
         else:
             await message.answer(text="There is something wrong !")
