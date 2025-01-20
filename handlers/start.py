@@ -5,10 +5,8 @@ from router import router
 from loader import db
 from handlers.check_membership import check_membership
 from keyboards.inline.join_channel import join_request
-from logs import logger
 
 
-@logger
 @router.message(CommandStart())
 async def start(message: types.Message):
     status = await check_membership(message.from_user.id)

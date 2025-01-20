@@ -1,7 +1,6 @@
 from aiogram import types
 from aiogram import F
 
-from logs import logger
 from router import router
 from loader import bot
 from config import SOURCE_CHANNEL
@@ -10,7 +9,6 @@ from keyboards.inline.join_channel import join_request
 from loader import db
 
 
-@logger
 @router.message(F.text.isdigit())
 async def send_movie(message: types.Message):
     status = await check_membership(message.from_user.id)
@@ -24,13 +22,9 @@ async def send_movie(message: types.Message):
                                    message_id=movie_id,
                                    protect_content=True
                                    )
-            await message.answer(text="""
-                    Here is your movie. I am happy to help 😊
-                """)
+            await message.answer(text="""Here is your movie. I am happy to help 😊""")
         except:
-            await message.reply(text="""
-                    I am afraid there is no movie with this id ❌\n\nTry again 😊
-                """)
+            await message.reply(text="""there is no movie with this id ❌\n\nTry again 😊""")
 
     else:
         await message.reply(text=f"Join the channel to use this bot ⬇️",
