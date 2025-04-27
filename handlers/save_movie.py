@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 
 from handlers.check_admin_status import ads_supervisor
 from router import router
-from loader import db
+from loader import db, bot
 from states.main import MovieForm
 
 

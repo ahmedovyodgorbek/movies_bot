@@ -10,9 +10,10 @@ from keyboards.inline.join_channel import join_request
 from loader import db
 
 
-@router.message(F.text.isdigit(), F.state == default_state)
+@router.message(F.text.isdigit())
 async def send_movie(message: types.Message):
     status = await check_membership(message.from_user.id)
+    print("!!!!!!!!!!!!!!!!!!!")
     if status:
         try:
             chat_id = message.from_user.id
