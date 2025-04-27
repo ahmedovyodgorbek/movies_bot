@@ -6,6 +6,7 @@ from router import router
 from loader import bot
 from config import SOURCE_CHANNEL
 from handlers.check_membership import check_membership
+from handlers.errors import report_error_to_admin
 from keyboards.inline.join_channel import join_request
 from loader import db
 
@@ -24,7 +25,8 @@ async def send_movie(message: types.Message):
                                    message_id=movie_id,
                                    protect_content=True
                                    )
-        except:
+        except Exception as e:
+            await report_error_to_admin(e)
             await message.answer(text="""Nothing Found 😔""")
 
     else:
