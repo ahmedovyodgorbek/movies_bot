@@ -37,13 +37,16 @@ async def admin_work(message: types.Message):
     status = await check_admin_status(message.from_user.id)
     if status:
         movies = db.get_movies()
+        if not movies:
+            await message.answer("Nothing found")
+            return
         text = ""
-        for movie in movies:
-            id = movie.get("id")
-            name = movie.get("name")
-            movie_id = movie.get("movie_id")
-            text += f"{id}. <b>{name}</b> | {movie_id}\n"
         try:
+            for movie in movies:
+                id = movie.get("id")
+                name = movie.get("name")
+                movie_id = movie.get("movie_id")
+                text += f"{id}. <b>{name}</b> | {movie_id}\n"
             await message.answer(text=text, parse_mode="HTML")
         except:
             await message.answer(text="error with getting movies")

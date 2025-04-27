@@ -17,12 +17,12 @@ async def start(message: types.Message):
             username = message.from_user.username
             db.register_user(telegram_id, fullname, username)
             await message.answer(text=f"""
-                Hello, glad to see you 👋 <b>{message.from_user.first_name}</>\n\nSend the movie id ⬇️
+                <b>{message.from_user.username} Hi 👋 </>\n\nSend the movie id ⬇️
             """, parse_mode="HTML")
 
         except:
             await message.answer(text=f"""
-                Hello, glad to see you again 👋 <b>{message.from_user.first_name}</b>\n\nSend the movie id ⬇️
+                <b>{message.from_user.username} Hi 👋 </>\n\nSend the movie id ⬇️
             """, parse_mode="HTML")
     else:
         await message.reply(text=f"Join the channel to use this bot ⬇️",

@@ -56,7 +56,7 @@ class Database:
             CREATE TABLE IF NOT EXISTS movies(
             id INT PRIMARY KEY AUTO_INCREMENT,
             name VARCHAR(100) NOT NULL,
-            movie_id VARCHAR(50) NOT NULL
+            movie_id VARCHAR(50) NOT NULL UNIQUE
             )
         """
         self.execute(sql)
@@ -71,6 +71,19 @@ class Database:
             return True
         except:
             return False
+
+    def get_movies(self):
+        sql = """
+            SELECT * FROM movies
+        """
+        return self.execute(sql, fetchall=True)
+
+    def delete_movie(self, id):
+        sql = """
+            DELETE FROM movies
+            WHERE id = %s
+        """
+        self.execute(sql, (id,), commit=True)
 
     def get_last_movie(self):
         sql = """
@@ -101,11 +114,5 @@ class Database:
     def get_users(self):
         sql = """
             SELECT * FROM users
-        """
-        return self.execute(sql, fetchall=True)
-
-    def get_movies(self):
-        sql = """
-            SELECT * FROM movies
         """
         return self.execute(sql, fetchall=True)

@@ -1,5 +1,4 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from config import SOURCE_CHANNEL
 
 
 def join_request():

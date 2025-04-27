@@ -9,5 +9,4 @@ DB_PASSWORD = env.str("DB_PASSWORD")
 DB_USER = env.str("DB_USER")
 DB_PORT = env.int("DB_PORT")
 DB_HOST = env.str("DB_HOST")
-
 SOURCE_CHANNEL = env.str("SOURCE_CHANNEL")
