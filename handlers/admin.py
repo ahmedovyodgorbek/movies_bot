@@ -21,6 +21,7 @@ async def admin_work(message: types.Message):
     status = await check_admin_status(message.from_user.id)
     if status:
         users = db.get_users()
+        total = db.get_total_users()
         text = ""
         for index, user in enumerate(users, start=1):
             fullname = user.get("fullname")
@@ -28,6 +29,7 @@ async def admin_work(message: types.Message):
             telegram_id = user.get("telegram_id")
             text += f"{index}. <b>{fullname}</b> | {username} | {telegram_id}\n"
         try:
+            text += f"\n<b>total users: {total['COUNT(*)']}</b>"
             await message.answer(text=text, parse_mode="HTML")
         except Exception as e:
             await report_error_to_admin(e)

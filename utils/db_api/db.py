@@ -113,6 +113,12 @@ class Database:
 
     def get_users(self):
         sql = """
-            SELECT * FROM users
+            SELECT * FROM users ORDER BY id DESC LIMIT 10
         """
         return self.execute(sql, fetchall=True)
+
+    def get_total_users(self):
+        sql = """
+            SELECT COUNT(*) FROM users
+        """
+        return self.execute(sql, fetchone=True)
