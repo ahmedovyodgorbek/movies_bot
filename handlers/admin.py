@@ -5,6 +5,7 @@ from router import router
 from handlers.check_admin_status import check_admin_status
 from keyboards.reply.admin_menu import generate_admin_menu
 from loader import db
+from handlers.errors import report_error_to_admin
 
 
 @router.message(F.text == "admin")
@@ -28,7 +29,8 @@ async def admin_work(message: types.Message):
             text += f"{index}. <b>{fullname}</b> | {username} | {telegram_id}\n"
         try:
             await message.answer(text=text, parse_mode="HTML")
-        except:
+        except Exception as e:
+            await report_error_to_admin(e)
             await message.answer(text="error with getting users")
 
 
